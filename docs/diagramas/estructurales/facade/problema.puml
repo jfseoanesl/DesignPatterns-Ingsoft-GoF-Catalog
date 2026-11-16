@@ -1,0 +1,62 @@
+@startuml
+skinparam dpi 170
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam padding 2
+skinparam ArrowColor #7A2E2E
+skinparam ArrowThickness 1.1
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #7A2E2E
+  BorderThickness 1.3
+  HeaderBackgroundColor #F7E3E1
+  FontStyle bold
+  AttributeFontColor #222222
+  StereotypeFontColor #555555
+}
+skinparam note {
+  BackgroundColor #FFF1F0
+  BorderColor #C0504D
+  FontSize 11
+}
+skinparam stereotypeCBackgroundColor #E8EEF7
+skinparam stereotypeIBackgroundColor #FFF4D6
+skinparam stereotypeABackgroundColor #E3F1E8
+hide empty members
+skinparam package {
+  BorderColor #8A8A8A
+  FontStyle normal
+  FontColor #444444
+}
+class ControladorCompraWeb {
+  +comprar(cliente, sku, cantidad, tarjeta): String
+}
+class ControladorCompraMovil {
+  +comprar(cliente, sku, cantidad, tarjeta): String
+}
+class Inventario
+class Pagos
+class Envios
+class Facturacion
+class Notificador
+ControladorCompraWeb --> Inventario
+ControladorCompraWeb --> Pagos
+ControladorCompraWeb --> Envios
+ControladorCompraWeb --> Facturacion
+ControladorCompraWeb --> Notificador
+ControladorCompraMovil --> Inventario
+ControladorCompraMovil --> Pagos
+ControladorCompraMovil --> Envios
+ControladorCompraMovil --> Facturacion
+ControladorCompraMovil --> Notificador
+note top of ControladorCompraMovil
+  Deuda: flujo y compensación
+  duplicados; 5 dependencias
+  por cliente.
+end note
+@enduml

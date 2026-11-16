@@ -1,0 +1,76 @@
+@startuml
+skinparam dpi 170
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam padding 2
+skinparam ArrowColor #1E5631
+skinparam ArrowThickness 1.1
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #1E5631
+  BorderThickness 1.3
+  HeaderBackgroundColor #E2F0E6
+  FontStyle bold
+  AttributeFontColor #222222
+  StereotypeFontColor #555555
+}
+skinparam note {
+  BackgroundColor #EEF7EE
+  BorderColor #4E8F5F
+  FontSize 11
+}
+skinparam stereotypeCBackgroundColor #E8EEF7
+skinparam stereotypeIBackgroundColor #FFF4D6
+skinparam stereotypeABackgroundColor #E3F1E8
+hide empty members
+skinparam package {
+  BorderColor #8A8A8A
+  FontStyle normal
+  FontColor #444444
+}
+class PantallaPago {
+  -fabrica: FabricaUI
+  +PantallaPago(fabrica: FabricaUI)
+  +dibujar(): String
+}
+enum Tema {
+  CLARO
+  OSCURO
+  +fabrica(): FabricaUI
+}
+interface FabricaUI {
+  +crearBoton(): Boton
+  +crearCampoTexto(): CampoTexto
+}
+class FabricaTemaClaro
+class FabricaTemaOscuro
+interface Boton {
+  +render(texto: String): String
+}
+interface CampoTexto {
+  +render(etiqueta: String): String
+}
+class BotonClaro
+class BotonOscuro
+class CampoTextoClaro
+class CampoTextoOscuro
+PantallaPago --> "1" FabricaUI
+PantallaPago ..> Boton
+PantallaPago ..> CampoTexto
+Tema ..> FabricaUI : <<selecciona>>
+FabricaUI <|.. FabricaTemaClaro
+FabricaUI <|.. FabricaTemaOscuro
+Boton <|.. BotonClaro
+Boton <|.. BotonOscuro
+CampoTexto <|.. CampoTextoClaro
+CampoTexto <|.. CampoTextoOscuro
+FabricaTemaClaro +-- BotonClaro
+FabricaTemaClaro +-- CampoTextoClaro
+FabricaTemaOscuro +-- BotonOscuro
+FabricaTemaOscuro +-- CampoTextoOscuro
+@enduml

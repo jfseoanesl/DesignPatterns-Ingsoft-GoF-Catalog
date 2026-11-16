@@ -1,0 +1,48 @@
+@startuml
+skinparam dpi 170
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam ArrowColor #2F4A6D
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2F4A6D
+  HeaderBackgroundColor #E6EDF6
+  FontStyle bold
+}
+skinparam stereotypeIBackgroundColor #FFF4D6
+skinparam stereotypeABackgroundColor #E3F1E8
+left to right direction
+hide empty members
+class "Clase" as C1 {
+  -privado: Tipo
+  #protegido: Tipo
+  ~paquete: Tipo
+  +publico(): Tipo
+  +{static} deClase(): Tipo
+  +{abstract} abstracto(): Tipo
+}
+interface Interfaz
+class Padre
+class Hija
+class Implementa
+class Cliente
+class Servicio
+class Todo
+class Parte
+class Contenedor
+class Componente
+class Usuario
+class Usada
+class Externa
+class Anidada
+Externa +-- Anidada : clase anidada
+Usuario ..> Usada : dependencia (<<usa>>, <<crea>>)
+Contenedor *-- Componente : composición (ciclo de vida)
+Todo o-- Parte : agregación (parte compartible)
+Cliente --> Servicio : asociación navegable
+Interfaz <|.. Implementa : realización (implements)
+Padre <|-- Hija : herencia (extends)
+@enduml

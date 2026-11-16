@@ -1,0 +1,75 @@
+@startuml
+skinparam dpi 170
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam padding 2
+skinparam ArrowColor #1E5631
+skinparam ArrowThickness 1.1
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #1E5631
+  BorderThickness 1.3
+  HeaderBackgroundColor #E2F0E6
+  FontStyle bold
+  AttributeFontColor #222222
+  StereotypeFontColor #555555
+}
+skinparam note {
+  BackgroundColor #EEF7EE
+  BorderColor #4E8F5F
+  FontSize 11
+}
+skinparam stereotypeCBackgroundColor #E8EEF7
+skinparam stereotypeIBackgroundColor #FFF4D6
+skinparam stereotypeABackgroundColor #E3F1E8
+hide empty members
+skinparam package {
+  BorderColor #8A8A8A
+  FontStyle normal
+  FontColor #444444
+}
+interface Expresion <<sealed>> {
+  +interpretar(ctx: Contexto): boolean
+}
+class Comparacion <<record, terminal>> {
+  +variable: String
+  +operador: String
+  +valor: String
+}
+class Y <<record>> {
+  +izq: Expresion
+  +der: Expresion
+}
+class O <<record>> {
+  +izq: Expresion
+  +der: Expresion
+}
+class No <<record>> {
+  +expr: Expresion
+}
+class Contexto {
+  -valores: Map<String, String>
+  +valor(variable: String): String
+}
+class Parser {
+  -tokens: List<String>
+  +{static} analizar(regla: String): Expresion
+  -o(): Expresion
+  -y(): Expresion
+  -unaria(): Expresion
+}
+Expresion <|.. Comparacion
+Expresion <|.. Y
+Expresion <|.. O
+Expresion <|.. No
+Y o--> "2" Expresion
+O o--> "2" Expresion
+No o--> "1" Expresion
+Expresion ..> Contexto
+Parser ..> Expresion : <<construye AST>>
+@enduml

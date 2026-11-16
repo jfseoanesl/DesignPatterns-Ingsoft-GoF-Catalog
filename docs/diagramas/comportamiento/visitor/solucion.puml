@@ -1,0 +1,62 @@
+@startuml
+skinparam dpi 170
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam padding 2
+skinparam ArrowColor #1E5631
+skinparam ArrowThickness 1.1
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #1E5631
+  BorderThickness 1.3
+  HeaderBackgroundColor #E2F0E6
+  FontStyle bold
+  AttributeFontColor #222222
+  StereotypeFontColor #555555
+}
+skinparam note {
+  BackgroundColor #EEF7EE
+  BorderColor #4E8F5F
+  FontSize 11
+}
+skinparam stereotypeCBackgroundColor #E8EEF7
+skinparam stereotypeIBackgroundColor #FFF4D6
+skinparam stereotypeABackgroundColor #E3F1E8
+hide empty members
+skinparam package {
+  BorderColor #8A8A8A
+  FontStyle normal
+  FontColor #444444
+}
+interface "Visitante<R>" as Visitante {
+  +visitar(l: Libro): R
+  +visitar(e: Electronico): R
+  +visitar(a: Alimento): R
+}
+class VisitanteIva
+class VisitanteJson
+class VisitanteEnvio
+interface Articulo <<sealed>> {
+  +aceptar(v: Visitante<R>): R
+}
+class Libro <<record>>
+class Electronico <<record>>
+class Alimento <<record>>
+class Carrito {
+  -articulos: List<Articulo>
+  +sumar(v: Visitante<Double>): double
+}
+Visitante <|.. VisitanteIva
+Visitante <|.. VisitanteJson
+Visitante <|.. VisitanteEnvio
+Articulo <|.. Libro
+Articulo <|.. Electronico
+Articulo <|.. Alimento
+Carrito o--> "*" Articulo
+Articulo ..> Visitante : aceptar(v) → v.visitar(this)
+@enduml

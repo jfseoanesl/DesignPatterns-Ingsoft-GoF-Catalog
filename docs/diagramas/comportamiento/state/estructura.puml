@@ -1,0 +1,56 @@
+@startuml
+skinparam dpi 170
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam padding 2
+skinparam ArrowColor #2F4A6D
+skinparam ArrowThickness 1.1
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2F4A6D
+  BorderThickness 1.3
+  HeaderBackgroundColor #E6EDF6
+  FontStyle bold
+  AttributeFontColor #222222
+  StereotypeFontColor #555555
+}
+skinparam note {
+  BackgroundColor #FDFBEA
+  BorderColor #B9A64B
+  FontSize 11
+}
+skinparam stereotypeCBackgroundColor #E8EEF7
+skinparam stereotypeIBackgroundColor #FFF4D6
+skinparam stereotypeABackgroundColor #E3F1E8
+hide empty members
+skinparam package {
+  BorderColor #8A8A8A
+  FontStyle normal
+  FontColor #444444
+}
+class Context {
+  -estado: State
+  +peticion(): void
+  ~cambiarEstado(s: State): void
+}
+interface State {
+  +manejar(ctx: Context): void
+}
+class ConcreteStateA {
+  +manejar(ctx: Context): void
+}
+class ConcreteStateB {
+  +manejar(ctx: Context): void
+}
+Context o--> "1" State : estado
+State <|.. ConcreteStateA
+State <|.. ConcreteStateB
+note left of Context
+  estado.manejar(this)
+end note
+@enduml
